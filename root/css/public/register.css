@@ -1,0 +1,30 @@
+#register input[type="text"],
+#register input[type="password"],
+#register input[type="submit"] {
+  display: block;
+  width: auto;
+}
+
+#register label,
+#register label {
+  font-size: 11px;
+  display: block;
+  width: 150px;
+}
+
+#register input[type="text"],
+#register input[type="password"] {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: inset 1px 1px 4px #ddd;
+  display: block;
+  height: 20px;
+  margin: 2px 0;
+  padding: 1px 5px;
+  width: 120px;
+}
+
+#register input[type="text"]:focus,
+#register input[type="password"]:focus {
+  border: 1px solid #acf;
+}
