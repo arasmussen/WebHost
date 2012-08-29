@@ -17,7 +17,7 @@ class UserAuth {
     $user = null,
     $loggedIn = false;
 
-  public function create_user($email, $password, $username) {
+  public function createUser($email, $password, $username) {
     if (!validate_email($email)) {
       return null;
     }

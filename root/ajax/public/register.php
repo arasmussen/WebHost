@@ -16,7 +16,7 @@ $email = $_POST['email'];
 $password = $_POST['password'];
 $username = $_POST['username'];
 
-$user = $user_auth->create_user($email, $password, $username);
+$user = $user_auth->createUser($email, $password, $username);
 
 if ($user) {
   echo 'success';
