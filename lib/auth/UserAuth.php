@@ -3,6 +3,7 @@ $root = realpath($_SERVER["DOCUMENT_ROOT"]);
 require_once("$root/../lib/db/SelectQuery.php");
 require_once("$root/../lib/db/InsertQuery.php");
 require_once("$root/../lib/auth/validate.php");
+require_once("$root/../lib/user/User.php");
 
 /**
  * UserAuth is a class that takes care of the dealing with the $_SESSION
@@ -16,8 +17,12 @@ class UserAuth {
     $user = null,
     $loggedIn = false;
 
-  public function create_user($email, $username, $password) {
+  public function create_user($email, $password, $username) {
     if (!validate_email($email)) {
+      return null;
+    }
+
+    if (!validate_username($username)) {
       return null;
     }
 
@@ -25,7 +30,7 @@ class UserAuth {
       return null;
     }
 
-    if ($this->userExists($email)) {
+    if ($this->emailExists($email) || $this->usernameExists($username)) {
       return null;
     }
 
@@ -47,10 +52,9 @@ class UserAuth {
    */
   public function login($email, $password) {
     $user_id = null;
-    $is_student = null;
 
-    if (!$this->userExists($email)) {
-      return 'fail email';
+    if (!$this->emailExists($email)) {
+      return null;
     }
 
     $user_query = new SelectQuery();
@@ -73,7 +77,21 @@ class UserAuth {
     return $this->user;
   }
 
-  public function userExists($email) {
+  public function usernameExists($username) {
+    $user_exists_query = new SelectQuery();
+    $result = $user_exists_query
+      ->addColumn('COUNT(*)')
+      ->setTable('Users')
+      ->addWhere('username', $username)
+      ->execute();
+    $row = mysql_fetch_array($result);
+    if ($row['COUNT(*)'] != '1') {
+      return false;
+    }
+    return true;
+  }
+
+  public function emailExists($email) {
     $user_exists_query = new SelectQuery();
     $result = $user_exists_query
       ->addColumn('COUNT(*)')
@@ -143,7 +161,7 @@ class UserAuth {
     session_start();
 
     if ($_SESSION['user_id'] !== null) {
-      $this->user = new Student($_SESSION['user_id']);
+      $this->user = new User($_SESSION['user_id']);
       $this->loggedIn = true;
     }
 

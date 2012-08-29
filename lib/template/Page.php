@@ -40,7 +40,7 @@ abstract class Page {
   }
 
   // implement these in abstract children
-  // (PublicPage, StudentPage, EmployerPage)
+  // (PublicPage, PrivatePage)
   abstract protected function authorizeUser();
   abstract protected function getHeaderContent();
   abstract protected function getFooterContent();

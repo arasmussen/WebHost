@@ -1,5 +1,5 @@
 $(function() {
-  function studentRegisterFailed() {
+  function registerFailed() {
     var container = $('#registerButton');
     container.removeClass('disabled');
 
@@ -20,11 +20,12 @@ $(function() {
     var password = $(this).find(
       '#registerPassword input[type="password"]'
     ).val();
+    var username = $(this).find('#registerUsername input[type="text"]').val();
 
     $.ajax({
       type: "POST",
       url: "/ajax/public/register.php",
-      data: {email: email, password: password}
+      data: {email: email, password: password, username: username}
     }).done(function(msg) {
       if (msg == 'fail' || msg == 'missing data') {
         registerFailed();

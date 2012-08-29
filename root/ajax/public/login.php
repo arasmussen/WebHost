@@ -9,7 +9,7 @@ if (array_key_exists('email', $_POST) && array_key_exists('password', $_POST)) {
   $email = $_POST['email'];
   $password = $_POST['password'];
 
-  if (!$user_auth->userExists($email)) {
+  if (!$user_auth->emailExists($email)) {
     echo 'error username';
   }
 

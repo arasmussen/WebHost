@@ -6,6 +6,7 @@ require_once("$root/../lib/user/User.php");
 $user_auth = new UserAuth();
 
 if (!array_key_exists('email', $_POST) ||
+    !array_key_exists('username', $_POST) ||
     !array_key_exists('password', $_POST)) {
   echo 'missing data';
   exit();
@@ -13,8 +14,9 @@ if (!array_key_exists('email', $_POST) ||
 
 $email = $_POST['email'];
 $password = $_POST['password'];
+$username = $_POST['username'];
 
-$user = $user_auth->create_user($email, $password);
+$user = $user_auth->create_user($email, $password, $username);
 
 if ($user) {
   echo 'success';
