@@ -53,7 +53,6 @@ abstract class Page {
         '})();' .
       '</script>';
   }
-}
 
   // implement these in abstract children
   // (PublicPage, PrivatePage)

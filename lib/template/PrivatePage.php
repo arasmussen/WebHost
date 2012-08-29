@@ -12,7 +12,7 @@ abstract class PrivatePage extends Page {
     $user_auth = new UserAuth();
     $user = $user_auth->authUser();
 
-    if (!$user) {
+    if ($user === null) {
       return false;
     }
 

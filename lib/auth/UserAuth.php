@@ -1,5 +1,5 @@
 <?php
-$root = realpath($_SERVER["DOCUMENT_ROOT"]);
+$root = realpath($_SERVER['DOCUMENT_ROOT']);
 require_once("$root/../lib/db/SelectQuery.php");
 require_once("$root/../lib/db/InsertQuery.php");
 require_once("$root/../lib/auth/validate.php");
@@ -43,7 +43,14 @@ class UserAuth {
       ->addValues(array($email, $password, $username), 1)
       ->execute();
 
-    return $this->login($email, $password);
+    $this->login($email, $password);
+
+    if ($this->user !== null) {
+      $root = realpath($_SERVER['DOCUMENT_ROOT']);
+      mkdir("$root/../projects/$username");
+    }
+
+    return $this->user;
   }
 
   /**
