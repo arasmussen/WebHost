@@ -1,27 +1,28 @@
 <?php
 $root = realpath($_SERVER['DOCUMENT_ROOT']);
+require_once("$root/../lib/AjaxScript.php");
 require_once("$root/../lib/auth/UserAuth.php");
 require_once("$root/../lib/user/User.php");
 
-$user_auth = new UserAuth();
-
-if (!array_key_exists('email', $_POST) ||
-    !array_key_exists('username', $_POST) ||
-    !array_key_exists('password', $_POST)) {
-  echo 'missing data';
-  exit();
+class Register extends AjaxScript {
+  protected function getResponse() {
+    $user_auth = new UserAuth();
+    
+    $user = $user_auth->createUser(
+      $this->data['email'],
+      $this->data['password'],
+      $this->data['username']
+    );
+    
+    if ($user !== null) {
+      return 'success';
+    } else {
+      return 'fail';
+    }
+  }
 }
 
-$email = $_POST['email'];
-$password = $_POST['password'];
-$username = $_POST['username'];
-
-$user = $user_auth->createUser($email, $password, $username);
-
-if ($user) {
-  echo 'success';
-} else {
-  echo 'fail';
-}
+$register_script = new Register();
+$register_script->execute(array('email', 'password', 'username'));
 
 ?>
