@@ -8,7 +8,7 @@ class Login extends AjaxScript {
   protected function getResponse() {
     $user_auth = new UserAuth();
 
-    if (!$user_auth->emailExists($this->data['email']) {
+    if (!$user_auth->emailExists($this->data['email'])) {
       return 'error username';
     }
 

@@ -33,13 +33,13 @@ abstract class PublicPage extends Page
     return '';
   }
 
-  final protected function getPageScripts() {
+  protected function getPageScripts() {
     return
       '<script type="text/javascript" src="/js/public/login.js"></script>' .
       '<script type="text/javascript" src="/js/public/register.js"></script>';
   }
 
-  final protected function getPageStyles() {
+  protected function getPageStyles() {
     return
       '<link rel="stylesheet" type="text/css" href="/css/public/public.css">' .
       '<link rel="stylesheet" type="text/css" href="/css/public/login.css">' .

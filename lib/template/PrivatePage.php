@@ -40,11 +40,11 @@ abstract class PrivatePage extends Page {
     return '';
   }
 
-  final protected function getPageScripts() {
+  protected function getPageScripts() {
     return '';
   }
 
-  final protected function getPageStyles() {
+  protected function getPageStyles() {
     return '';
   }
 

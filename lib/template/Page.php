@@ -59,9 +59,11 @@ abstract class Page {
   abstract protected function authorizeUser();
   abstract protected function getHeaderContent();
   abstract protected function getFooterContent();
+  abstract protected function getPageType();
+
+  // implement these in both children and grandchildren
   abstract protected function getPageScripts();
   abstract protected function getPageStyles();
-  abstract protected function getPageType();
 
   // implement these in grandchildren
   abstract protected function getPageContent();

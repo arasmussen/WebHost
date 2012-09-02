@@ -15,6 +15,24 @@ class Dashboard extends PrivatePage {
     return '<p>' . $username . '</p>';
   }
 
+  private function getCreateProjectContent() {
+    return
+      '<div id="createProject">' .
+        '<a href="javascript:void(0)" id="hideCreateProject">' .
+          'Cancel' .
+        '</a>' .
+        '<form method="post" action="javascript:void(0)">' .
+          '<div id="createProjectName">' .
+            '<label>Project Name</label>' .
+            '<input type="text" name="projectName" />' .
+          '</div>' .
+          '<div id="createProjectButton">' .
+            '<input type="submit" value="Create Project" />' .
+          '</div>' .
+        '</form>' .
+      '</div>';
+  }
+
   private function getProjectContent() {
     $projects = $this->getuser()->getProjects();
 
@@ -31,8 +49,23 @@ class Dashboard extends PrivatePage {
 
     return
       '<h2>Projects (' . sizeof($projects) . ')</h2>' .
-      '<a href="javascript:void(0)" id="createProject">Create a project</a>' .
+      '<a href="javascript:void(0)" id="showCreateProject">' .
+        'Create a project' .
+      '</a>' .
+      $this->getCreateProjectContent() .
       $contents;
+  }
+
+  protected function getPageStyles() {
+    return
+      parent::getPageStyles() .
+      '<link rel="stylesheet" type="text/css" href="/css/dashboard/create_project.css">';
+  }
+
+  protected function getPageScripts() {
+    return
+      parent::getPageScripts() .
+      '<script type="text/javascript" src="/js/dashboard/create_project.js"></script>';
   }
 
   protected function getPageTitle() {
